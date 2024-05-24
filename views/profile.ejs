@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div class="main w-full min-h-screen bg-zinc-900 p-10 text-white flex">
+    <div class="container">
+      <div class="pf flex items-start gap-3 mb-2 ">
+        <div class="w-10 h-10 rounded-md overflow-hidden">
+          <img class="w-full h-full object-cover" src="/images/uploads/<%=user.profilepic %>" alt="">
+        </div>
+        <h3 class="text-3xl text-white"><span class="font-light">Hello ,</span> Boss <%=user.name%> 😃</h3>
+      </div>
+      <h5 class="mb-5">You can create a post....</h5>
+      <form action="/post" method="post">
+        <textarea placeholder="Write your post here.." class="w-1/2 p-3 resize-none outline-none bg-transparent border-2 border-zinc-800 rounded-md text-white block mb-3" name="content" id="" ></textarea>
+        <input class="px-3 py-2 bg-blue-500 rounded-md w-40 text-sm block"  type="submit" value="Create your post" >
+      </form>
+      <div class="posts mt-20">
+        <h4 class="text-zinc-400 mb-3">Your posts</h4>
+        <div class="post-container">
+          <%user.posts.reverse().forEach(function(post){%>
+            <!-- <div class="post w-1/2 border-2 border-zinc-800 p-3 rounded-md mb-4 bg-zinc-800"> -->
+
+              <div class="post w-1/2 border-2 border-zinc-800 p-3 rounded-md mb-4 bg-zinc-800">
+                <h4 class="text-blue-500 mb-4">@<%=user.username%></h4>
+                <p class="tracking-tighter text-sm font-light"><%=post.content%></p>
+                <small class="inline-block mt-3 "><%=post.likes.length%></small>
+                <div class="btns flex gap-5 mt-3">
+                  <a href="/like/<%= post._id %>" class="text-blue-500">
+                    <%=post.likes.indexOf(user._id)===-1?"Like":"Unlike" %>
+                  </a>
+                  <a href="/edit/<%=post._id%>" class="text-zinc-500">Edit</a>
+                </div>
+              </div>
+            <%})%>
+        </div>
+      </div>
+    </div>
+    <div>
+      <a href="/logout" class="bg-red-500 px-4 py-3 rounded-md text-sm mb-5 inline-block">Logout</a>
+    </div>
+
+
+
+      
+  </div>
+</body>
+</html>
